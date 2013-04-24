@@ -1,0 +1,154 @@
+
+{% include "inc_header.dtl" %}
+
+    <title>WebRTC video conference</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free video conference, chatroulette and webchat using WebRTC">
+    <meta name="author" content="Andrey Sergienko">
+
+  </head>
+
+  <body onload="onLoad();">
+
+    <div class="container">
+
+{% include "inc_topmenu.dtl" %}
+
+      <div class="alert alert-info">
+        <div class="jumbotron"> 
+          <p class="lead">Video conference works in two modes:<br>
+            Create a private room, share a link with a friend and get video conference.<br>
+            OR<br>
+            Just click on 'Roulette!' - and meet a random person</p>
+          <a class="btn btn-large btn-success" onClick="init_room();" id="btn_room">Private room</a>
+          <a class="btn btn-large btn-success" onClick="init_roulette();" id="btn_roulette">Roulette!</a>
+        </div>
+      </div>
+
+      <hr>
+
+      <div class="row">
+        <div class="span12">
+          <div class="alert alert-success" id="footer" />
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span2">
+        </div>
+        <div class="span4">
+          <div class="video" id="divL">
+            <video width="100%" height="100%" id="localVideo" autoplay="autoplay" />
+          </div>
+        </div>
+        <div class="span4">
+          <div class="video" id="divR">
+          <video width="100%" height="100%" id="remoteVideo" autoplay="autoplay" />
+          </div>
+        </div>
+        <div class="span2">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span2">
+        </div>
+        <div class="span8">
+          <div id="chat_div" style="width:100%; height:250px; overflow: auto; margin:0 auto 0 auto; border:1px solid rgb(200,200,200); background rgb(250,250,250);"></div>
+        </div>
+        <div class="span2">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span2">
+        </div>
+        <div class="span8">
+          <form class="navbar-search pull-left" name="chat" onsubmit="addChatLMsg(document.chat.msg.value); return false;">
+            <input type="text" class="search-query" placeholder="chat here" name="msg" id="chat_input">
+            <input type="submit" class="btn" id="submit_btn"/>
+          </form>
+        </div>
+        <div class="span2">
+        </div>
+      </div>
+
+<script language="JavaScript">
+
+function getTime()
+      {
+        var d = new Date();
+        var c_h = d.getHours();
+        var c_m = d.getMinutes();
+        var c_s = d.getSeconds();
+
+        if (c_h < 10) { c_h = "0" + c_h; }
+        if (c_m < 10) { c_m = "0" + c_m; }
+        if (c_s < 10) { c_s = "0" + c_s; }
+
+        return c_h + ":" + c_m + ":" + c_s + ": ";
+      }
+
+  function enableButtons()
+  {
+    document.getElementById("btn_room").disabled = false;
+    document.getElementById("btn_roulette").disabled = false;
+  }
+
+  function disableButtons()
+  {
+    document.getElementById("btn_room").disabled = true;
+    document.getElementById("btn_roulette").disabled = true;
+  }
+
+  function onLoad()
+  {
+    v_d = document.getElementById("divL");
+    v_w = v_d.offsetWidth;
+    v_h = v_d.offsetHeight;
+    v_h = v_w * 3 / 4;
+    v_d.offsetHeight = v_h;
+
+    v_d.setAttribute("style","height:"+v_h+"px");
+    v_d.style.height=v_h+'px';
+
+    v_d = document.getElementById("divR");
+    v_d.setAttribute("style","height:"+v_h+"px");
+    v_d.style.height=v_h+'px';
+
+    c_d = document.getElementById("chat_div");
+    c_w = c_d.offsetWidth;
+
+    b_d = document.getElementById("submit_btn");
+    b_w = b_d.offsetWidth;
+
+    i_d = document.getElementById("chat_input");
+    i_w = c_w - b_w - 40;
+
+    i_d.setAttribute("style","width:"+i_w+"px");
+    i_d.style.width=i_w+'px';
+
+    setStatus("waiting for decision...");
+
+    if (location.search.substring(1,5) == "room") init_room();
+  }
+
+  function addChatMsg(msg, color)
+  {
+    m = "<font color=" + color + ">" + getTime() + msg + "</font><br/>"
+    document.getElementById('chat_div').innerHTML = document.getElementById('chat_div').innerHTML + m;
+  }
+
+  function addChatRMsg(msg) { addChatMsg(msg,"#3a87ad"); }
+ 
+  function addChatLMsg(msg)
+  {
+    if (true !== channelReady) return;
+    addChatMsg(msg,"#468847");
+    document.chat.msg.value = '';
+    chatSendMessage(msg);
+  }
+
+</script>
+
+{% include "inc_footer.dtl" %}

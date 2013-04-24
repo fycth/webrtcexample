@@ -1,0 +1,17 @@
+{application, vchat,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib,
+                  cowboy,
+                  compiler,
+                  syntax_tools,
+                  lager,
+                  gproc
+                 ]},
+  {mod, { vchat_app, []}},
+  {env, []}
+ ]}.

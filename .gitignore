@@ -1,0 +1,5 @@
+apps/*/ebin/
+deps/
+log/*.lo*
+www/tmp/
+
