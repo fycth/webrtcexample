@@ -1,6 +1,6 @@
       <div class="masthead">
         <ul class="nav nav-pills pull-right">
-          <li><a href="https://github.com/fycth">GitHub</a></li>
+          <li><a href="https://github.com/fycth/webrtcexample">GitHub</a></li>
           <li><a href="http://ua.linkedin.com/in/erazer">LinkedIn</a></li>
         </ul>
         <a href="/"><h3 class="muted">WebRTC Example</h3></a>
