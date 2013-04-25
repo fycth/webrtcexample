@@ -41,9 +41,16 @@ websocket_handle({text,Data}, Req, State) ->
                 <<"INVITE">> ->
                     [H1|_] = T,
                     {<<"value">>,Room} = H1,
-                    gproc:reg({p,l, Room}),
-                    S = (StateNew#state{room = Room}),
-                    {ok, Req, S, hibernate};
+                    Participants = gproc:lookup_pids({p,l,Room}),
+                    case length(Participants) of
+                        1 ->
+                            gproc:reg({p,l, Room}),
+                            S = (StateNew#state{room = Room}),
+                            {ok, Req, S, hibernate};
+                        _->
+                            R = jsonx:encode([{type, <<"WRONGROOM">>}]),
+                            {reply, {text, <<R/binary>>}, Req, StateNew, hibernate}
+                    end;
                 <<"ROULETTE">> ->
                     case ets:lookup(signaler_ets,room) of
                         [{room,Room}] ->

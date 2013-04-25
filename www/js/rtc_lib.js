@@ -206,6 +206,10 @@
           resetStatus();
           initiator = false;
       }
+      else if (msg.type === 'WRONGROOM')
+      {
+          window.location.href="/";
+      }
   }
 
   function onChannelOpened()
