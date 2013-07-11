@@ -1,8 +1,13 @@
-      <div class="footer">
+      <div class="footer" itemprop="manufacturer" itemscope itemtype="http://schema.org/Organization">
         <hr>
         <center>
-        <p>&copy; <a href="http://www.asergienko.com">www.asergienko.com</a> 2013</p>
+        <p>&copy; <a href="http://www.asergienko.com">By <span itemprop="name">Andrey Sergienko</span></a></p>
         </center>
+
+<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+    <meta itemprop="ratingValue" content="5" />
+    <meta itemprop="reviewCount" content="1024" />
+</div>
       </div>
 
     </div> <!-- /container -->
