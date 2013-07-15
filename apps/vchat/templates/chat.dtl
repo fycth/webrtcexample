@@ -135,8 +135,10 @@ function getTime()
 
   function addChatMsg(msg, color)
   {
+    var chatDiv = document.getElementById('chat_div');
     m = "<font color=" + color + ">" + getTime() + msg + "</font><br/>"
-    document.getElementById('chat_div').innerHTML = document.getElementById('chat_div').innerHTML + m;
+    chatDiv.innerHTML = chatDiv.innerHTML + m;
+    chatDiv.scrollTop = chatDiv.scrollHeight;
   }
 
   function addChatRMsg(msg) { addChatMsg(msg,"#3a87ad"); }
