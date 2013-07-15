@@ -38,7 +38,7 @@
         </div>
         <div class="span4">
           <div class="video" id="divL">
-            <video width="100%" height="100%" id="localVideo" autoplay="autoplay" />
+            <video width="100%" height="100%" id="localVideo" autoplay="autoplay" muted="true" />
           </div>
         </div>
         <div class="span4">
