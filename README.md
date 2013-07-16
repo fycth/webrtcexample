@@ -24,12 +24,12 @@ Video conference, web chat, video 'chat rouelette' using Erlang, JavaScript and 
 
 UI  
 
-  listen_host - your server's domain name or IP address 
+  listen_host - your server's domain name or IP address  
   listen_port - TCP port to listen on
 
 Signaler  
 
-  signaler_listen_host - your server's domain name or IP address 
+  signaler_listen_host - your server's domain name or IP address  
   signaler_listen_port - TCP port to listen on
 
     vi www/js/rtc_lib.js
