@@ -47,10 +47,10 @@ Now open URL http://<listen_host>/
 NGINX
 ---
 
-server { 
- listen 80; 
- server_name www.your_server_name.com 
- location /chat { 
-  proxy_pass http://<listen_host>:<listen_port>; 
- } 
-} 
+server {  
+ listen 80;  
+ server_name www.your_server_name.com  
+ location /chat {  
+  proxy_pass http://<listen_host>:<listen_port>;  
+ }  
+}  
