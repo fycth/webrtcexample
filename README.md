@@ -10,39 +10,41 @@ Video conference, web chat, video 'chat rouelette' using Erlang, JavaScript and 
 
 ### Get the code:
 
-  git clone https://github.com/fycth/webrtcexample.git
+    git clone https://github.com/fycth/webrtcexample.git
 
 ### Build
 
-  cd webrtcexample 
-  rebar get-deps 
-  rebar compile
+    cd webrtcexample 
+    rebar get-deps 
+    rebar compile
 
 ### Configuration
 
-Edit etc/app.config
+    vi etc/app.config
 
-UI
+UI  
 
   listen_host - your server's domain name or IP address 
   listen_port - TCP port to listen on
 
-Signaler
+Signaler  
 
   signaler_listen_host - your server's domain name or IP address 
   signaler_listen_port - TCP port to listen on
 
-Edit www/js/rtc_lib.js
+    vi www/js/rtc_lib.js
 
-  Find this line "connection = new WebSocket('ws://www.webrtcexample.com:8087/s');" - around line 42 
+  Find this line "connection = new WebSocket('ws://www.webrtcexample.com:8087/s');" - around line 42  
   and change URL to [signaler_listen_host] and [signaler_listen_port]
 
 ### Run
 
-  ./start.sh - to start in console 
-  ./start_detached.sh - to start detached (in background)
+    ./start.sh - to start in console 
+    ./start_detached.sh - to start detached (in background)
 
-Now open URL http://listen_host/
+Now open URL
+
+    http://listen_host/
 
 NGINX
 ---
