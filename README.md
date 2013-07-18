@@ -1,7 +1,16 @@
 WebRTC Example
 =============
 
-Video conference, web chat, video 'chat rouelette' using Erlang, JavaScript and WebRTC.
+This is a web application that allows you to video chat with someone else.
+Just create a virtual room, share the link with someone and start a video chat.
+The application also supports traditional web chat using text messages.
+
+Written using JavaScript and Erlang.
+
+### Tested with browsers
+
+  - Firefox version 22 or later
+  - Google Chrome version 23 or later
 
 ### Dependencies:
 
@@ -34,7 +43,10 @@ Signaler
 
     vi www/js/rtc_lib.js
 
-  Find this line "connection = new WebSocket('ws://www.webrtcexample.com:8087/s');" - around line 42  
+  Edit first line  
+
+  var wsURI = 'ws://www.webrtcexample.com:8087/s';
+
   and change URL to [signaler_listen_host] and [signaler_listen_port]
 
 ### Run
