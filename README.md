@@ -31,13 +31,6 @@ Written using JavaScript and Erlang.
 
     vi etc/app.config
 
-UI  
-
-  listen_host - your server's domain name or IP address  
-  listen_port - TCP port to listen on
-
-Signaler  
-
   signaler_listen_host - your server's domain name or IP address  
   signaler_listen_port - TCP port to listen on
 
@@ -45,7 +38,7 @@ Signaler
 
   Edit first line  
 
-  var wsURI = 'ws://www.webrtcexample.com:8087/s';
+  var wsURI = 'ws://www.webrtcexample.com:10088/s';
 
   and change URL to [signaler_listen_host] and [signaler_listen_port]
 
@@ -54,19 +47,5 @@ Signaler
     ./start.sh - to start in console 
     ./start_detached.sh - to start detached (in background)
 
-Now open URL
-
-    http://listen_host/
-
-NGINX
----
-
-    server {  
-        listen 80;  
-        server_name www.your_server_name.com  
-        location /chat {  
-            proxy_pass http://listen_host:listen_port;  
-        }  
-    }  
-
+Now configure your web server, point them on [www] folder as a 'root dir', and open your new web site.
 
