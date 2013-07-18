@@ -7,6 +7,10 @@ The application also supports traditional web chat using text messages.
 
 Written using JavaScript and Erlang.
 
+### Examples of using
+
+  - http://www.oslikas.com built using this code
+
 ### Tested with browsers
 
   - Firefox version 22 or later
