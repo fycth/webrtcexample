@@ -1,3 +1,5 @@
+  var wsURI = 'ws://www.webrtcexample.com:8087/s';
+
   var localVideo;
   var remoteVideo;
   var localStream;
@@ -5,7 +7,6 @@
   var channelReady = false;
   var connection;
   var pc;
-  var socket;
   var room;
   var initiator = 0;
   var started = false;
@@ -39,7 +40,7 @@
 
   function openChannel()
   {
-      connection = new WebSocket('ws://www.webrtcexample.com:8087/s');
+      connection = new WebSocket(wsURI);
       connection.onopen = onChannelOpened;
       connection.onerror = function (error) { console.log('WebSocket Error ' + error); };
       connection.onmessage = onChannelMessage;
@@ -286,7 +287,7 @@
 
       setStatus("Connected!");
 
-      disableButtons();
+//      disableButtons();
   }
 
   function onRemoteStreamRemoved(event)
@@ -299,7 +300,7 @@
       console.log("Hanging up.");
       stop();
       connection.close();
-      enableButtons();
+//      enableButtons();
       setStatusHangup();
   }
    
@@ -411,6 +412,7 @@
               return false;
           }
       }
+      return false;
   }
 
   function preferOpus(sdp)
@@ -430,7 +432,7 @@
       if (mLineIndex === null) return sdp;
 
       // If Opus is available, set it as the default in m line.
-      for (var i = 0; i < sdpLines.length; i++)
+      for (i = 0; i < sdpLines.length; i++)
       {
           if (sdpLines[i].search('opus/48000') !== -1)
           {
