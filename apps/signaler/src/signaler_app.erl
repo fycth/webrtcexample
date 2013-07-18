@@ -10,6 +10,13 @@
 %% ===================================================================
 
 start() ->
+    application:start(compiler),
+    application:start(syntax_tools),
+    application:start(lager),
+    application:start(ranch),
+    application:start(crypto),
+    application:start(cowboy),
+    application:start(gproc),
     application:start(signaler).
 
 start(_StartType, _StartArgs) ->

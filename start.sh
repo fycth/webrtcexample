@@ -1,1 +1,1 @@
-erl -pa deps/*/ebin apps/*/ebin -sasl errlog_type error -s vchat_app -config etc/app.config
+erl -pa deps/*/ebin apps/*/ebin -sasl errlog_type error -s signaler_app -config etc/app.config

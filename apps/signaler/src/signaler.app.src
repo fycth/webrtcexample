@@ -5,7 +5,12 @@
   {registered, []},
   {applications, [
                   kernel,
-                  stdlib
+                  stdlib,
+                  cowboy,
+                  compiler,
+                  syntax_tools,
+                  lager,
+                  gproc
                  ]},
   {mod, { signaler_app, []}},
   {env, []}
