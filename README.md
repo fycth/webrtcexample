@@ -47,7 +47,7 @@ Written using JavaScript and Erlang.
 
 ### Nginx
 
-You should use NGINX >= 1.4 to make it work 
+You should use NGINX >= 1.4 to make it work  
 Edit your nginx configuraton file and add these lines into the website configuration:
 
     location /s { 
