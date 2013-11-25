@@ -45,15 +45,16 @@ Written using JavaScript and Erlang.
 
   and change URL to [signaler_listen_host]
 
-  Edit your nginx configuraton file and add these lines into the website configuration:
+### Nginx
 
-    location /s {
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    }
+You should use NGINX >= 1.4 to make it work 
+Edit your nginx configuraton file and add these lines into the website configuration:
 
-  !!! You should use NGINX >= 1.4 to make it work
+    location /s { 
+    proxy_http_version 1.1; 
+    proxy_set_header Upgrade $http_upgrade; 
+    proxy_set_header Connection "upgrade"; 
+    } 
 
 ### Run
 
