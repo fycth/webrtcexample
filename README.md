@@ -35,16 +35,25 @@ Written using JavaScript and Erlang.
 
     vi etc/app.config
 
-  signaler_listen_host - your server's domain name or IP address  
   signaler_listen_port - TCP port to listen on
 
     vi www/js/rtc_lib.js
 
   Edit first line  
 
-  var wsURI = 'ws://www.webrtcexample.com:10088/s';
+  var wsURI = 'ws://www.webrtcexample.com/s';
 
-  and change URL to [signaler_listen_host] and [signaler_listen_port]
+  and change URL to [signaler_listen_host]
+
+  Edit your nginx configuraton file and add these lines into the website configuration:
+
+    location /s {
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    }
+
+  !!! You should use NGINX >= 1.4 to make it work
 
 ### Run
 
