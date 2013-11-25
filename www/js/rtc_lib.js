@@ -1,4 +1,4 @@
-  var wsURI = 'ws://www.webrtcexample.com:10088/s';
+  var wsURI = 'ws://www.webrtcexample.com/s';
 
   var localVideo;
   var remoteVideo;

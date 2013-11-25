@@ -10,24 +10,23 @@
 %% ===================================================================
 
 start() ->
-    application:start(compiler),
-    application:start(syntax_tools),
-    application:start(lager),
-    application:start(ranch),
-    application:start(crypto),
-    application:start(cowboy),
-    application:start(gproc),
-    application:start(signaler).
+    ok = application:start(compiler),
+    ok = application:start(syntax_tools),
+    ok = application:start(lager),
+    ok = application:start(ranch),
+    ok = application:start(crypto),
+    ok = application:start(cowboy),
+    ok = application:start(gproc),
+    ok = application:start(signaler).
 
 start(_StartType, _StartArgs) ->
     Port = app_config:get_conf(signaler_listen_port, 0),
-    LDomain = app_config:get_conf(signaler_listen_host,"localhost"),
     Dispatch = cowboy_router:compile([
-                                      {LDomain,[
+                                      {'_',[
                                             {"/s", handler_websocket,[]} %% signaling, websocket
                                            ]}
                                      ]),
-    {ok, _} = cowboy:start_http(websocket, 100, [{port, Port}], [
+    {ok, _} = cowboy:start_http(websocket, 100, [{port, Port},{ip,{127,0,0,1}}], [
                                 {env, [{dispatch, Dispatch}]},
                                 {max_keepalive, 50},
                                 {timeout, 500}
