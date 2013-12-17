@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/cerulean_bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {
+            padding-top: 80px;
+            padding-bottom: 40px;
+        }
+        .video {
+            width: 100%;
+            padding: 0px;
+            border: solid 1px rgb(200,200,200);
+        }
+        /* Wrapper for page content to push down footer */
+        #wrap {
+            min-height: 100%;
+            height: auto !important;
+            height: 100%;
+            /* Negative indent footer by it's height */
+            margin: 0 auto -60px;
+        }
+        #footer {
+            height: 60px;
+        }
+        #footer {
+            background-color: #f5f5f5;
+        }
+        .container .credit {
+            margin: 20px 0;
+        }
+        /* Lastly, apply responsive CSS fixes as necessary */
+        @media (max-width: 767px) {
+            #footer {
+                margin-left: -20px;
+                margin-right: -20px;
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+    </style>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <link rel="shortcut icon" href="/ico/favicon.png">
+
+    <script type="text/javascript" src="/js/WebRTCO.js" charset="utf-8"></script>
+
+    <title>WebRTC video conference</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Free video conference, chatroulette and webchat using WebRTC">
+    <meta name="author" content="Andrey Sergienko">
+</head>
+
+<body onload="onLoad();">
+
+<div id="wrap">
+
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="../" class="navbar-brand">WebRTC Example</a>
+        </div>
+        <div class="navbar-collapse collapse" id="navbar-main">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="https://github.com/fycth/webrtcexample" target="_blank">GitHUB</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span4" id="div_video_local">
+            <video width="100%" height="100%" autoplay="autoplay" id="localVideo" muted="true"/>
+        </div>
+        <div class="span4" id="div_video_remote">
+            <video width="100%" height="100%" autoplay="autoplay" id="remoteVideo1"/>
+        </div>
+        <div class="span2"></div>
+    </div>
+    <div class="row">
+        <div class="span12" align="center">
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.webrtcexample.com" data-text="Free video conferences #WebRTC" data-via="fycth" data-count="vertical">Tweet</a>
+            <div class="fb-like" data-href="http://www.webrtcexample.com" data-layout="box_count" data-send="false" data-width="450" data-show-faces="false"></div>
+            <div class="g-plus" data-action="share" data-annotation="vertical-bubble" data-height="60" data-href="http://www.webrtcexample.com"></div>
+            <script type="IN/Share" data-url="http://www.webrtcexample.com" data-counter="top"></script>
+        </div>
+    </div>
+    <div class="row">
+        <div class="span12">
+            <div id="chat_area" style="width:100%; height:250px; overflow: auto; margin:0 auto 0 auto; border:1px solid rgb(200,200,200); background: rgb(250,250,250);"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="span2"></div>
+        <div class="span8" id="div_chat_input">
+            <form class="navbar-search pull-left" name="chat_form" onsubmit="sendMessage(document.chat_form.msg.value); return false;">
+                <input type="text" class="search-query" placeholder="chat here" name="msg" id="chat_input">
+                <input type="submit" class="btn" id="chat_submit_btn"/>
+            </form>
+        </div>
+        <div class="span2"></div>
+    </div>
+
+    <div id="footer">
+        <div class="container">
+            <p class="muted credit">by <a href="http://www.asergienko.com">Andrey Sergienko</a></p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script type="text/javascript">
+    var chatArea = document.getElementById("chat_area");
+    var msgColorLocal = "#468847";
+    var msgColorRemote = "#3a87ad";
+
+    var lv = document.getElementById("localVideo");
+    var rv = document.getElementById("remoteVideo1");
+    var rtc = new WebRTCO();
+
+    rtc.setDebug(true);
+    rtc.setCallBackReceiveChatMessage(receiveMessage);
+    rtc.setCallOnRoomReceived(onRoomReceived);
+    rtc.initialize('ws://'+window.location.host+'/signaling',lv, rv);
+
+    function onLoad() {
+        var divChatInput = document.getElementById("div_chat_input");
+        var divChatInputWidth = divChatInput.offsetWidth;
+
+        var chatSubmitButton = document.getElementById("chat_submit_btn");
+        var chatSubmitButtonWidth = chatSubmitButton.offsetWidth;
+
+        var chatInput = document.getElementById("chat_input");
+        var chatInputWidth = divChatInputWidth - chatSubmitButtonWidth - 40;
+
+        chatInput.setAttribute("style","width:" + chatInputWidth + "px");
+        chatInput.style.width = chatInputWidth + 'px';
+
+
+        var _divV = document.getElementById("div_video_local");
+        var _w = _divV.offsetWidth;
+        var _h = _w * 3 / 4;
+        _divV.offsetHeight = _h;
+        _divV.setAttribute("style","height:"+_h+"px");
+        _divV.style.height=_h+'px';
+
+        _divV = document.getElementById("div_video_remote");
+        _divV.setAttribute("style","height:"+_h+"px");
+        _divV.style.height=_h+'px';
+    };
+
+    function getTime() {
+        var d = new Date();
+        var c_h = d.getHours();
+        var c_m = d.getMinutes();
+        var c_s = d.getSeconds();
+
+        if (c_h < 10) { c_h = "0" + c_h; }
+        if (c_m < 10) { c_m = "0" + c_m; }
+        if (c_s < 10) { c_s = "0" + c_s; }
+
+        return c_h + ":" + c_m + ":" + c_s + ": ";
+    };
+
+    function sendMessage(msg) {
+        addChatMsg(msg, msgColorLocal);
+        document.chat_form.msg.value = '';
+        rtc.chatSendMessage(msg);
+    };
+
+    function receiveMessage(msg) {
+        addChatMsg(msg, msgColorRemote);
+    };
+
+    function addChatMsg(msg, msgColor) {
+        var chatMsg = "<font color=" + msgColor + ">" + getTime() + msg + "</font><br/>";
+        chatArea.innerHTML = chatArea.innerHTML + chatMsg;
+        chatArea.scrollTop = chatArea.scrollHeight;
+    };
+
+    function onRoomReceived(room) {
+        addChatMsg("Now, if somebody wants to join you, should use this link: <a href=\""+window.location.href+"?room="+room+"\">"+window.location.href+"?room="+room+"</a>",msgColorRemote);
+    };
+</script>
+
+<script type="text/javascript">
+    var scripts = ["http://apis.google.com/js/plusone.js","http://connect.facebook.net/en_US/all.js#xfbml=1","http://platform.twitter.com/widgets.js","//platform.linkedin.com/in.js"];
+    (function(array) {
+        for (var i = 0, len = array.length; i < len; i++)
+        {
+            var elem = document.createElement('script');
+            elem.type = 'text/javascript';
+            elem.async = true;
+            elem.src = array[i];
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(elem, s);
+        }
+    })(scripts);
+</script>
+
+</body>
+</html>
