@@ -262,6 +262,7 @@
       attachMediaStream(localVideo, stream);
       localStream = stream;
       if (initiator) maybeStart();
+//maybeStart();
   }
 
   function onUserMediaError(error)
