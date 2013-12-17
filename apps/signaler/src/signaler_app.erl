@@ -10,11 +10,13 @@
 %% ===================================================================
 
 start() ->
-    ok = application:start(compiler),
     ok = application:start(syntax_tools),
+    ok = application:start(compiler),
+    ok = application:start(goldrush),
     ok = application:start(lager),
     ok = application:start(ranch),
     ok = application:start(crypto),
+    ok = application:start(cowlib),
     ok = application:start(cowboy),
     ok = application:start(gproc),
     ok = application:start(signaler).
@@ -23,7 +25,8 @@ start(_StartType, _StartArgs) ->
     Port = app_config:get_conf(signaler_listen_port, 0),
     Dispatch = cowboy_router:compile([
                                       {'_',[
-                                            {"/s", handler_websocket,[]} %% signaling, websocket
+                                            {"/s", handler_websocket_old,[]}, %% signaling, websocket
+                                            {"/signaling", handler_websocket,[]}
                                            ]}
                                      ]),
     {ok, _} = cowboy:start_http(websocket, 100, [{port, Port},{ip,{127,0,0,1}}], [

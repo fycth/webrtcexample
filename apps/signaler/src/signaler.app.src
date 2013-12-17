@@ -6,9 +6,11 @@
   {applications, [
                   kernel,
                   stdlib,
+                  cowlib,
                   cowboy,
                   compiler,
                   syntax_tools,
+                  goldrush,
                   lager,
                   gproc
                  ]},
