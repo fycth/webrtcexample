@@ -129,7 +129,7 @@
     var rv = document.getElementById("remoteVideo1");
     var rtc = new WebRTCO();
 
-    rtc.setDebug(true);
+//    rtc.setDebug(true);
     rtc.setCallBackReceiveChatMessage(receiveMessage);
     rtc.setCallOnRoomReceived(onRoomReceived);
     rtc.initialize('ws://'+window.location.host+'/signaling',lv, rv);
@@ -195,7 +195,7 @@
 </script>
 
 <script type="text/javascript">
-    var scripts = ["http://apis.google.com/js/plusone.js","http://connect.facebook.net/en_US/all.js#xfbml=1","http://platform.twitter.com/widgets.js","//platform.linkedin.com/in.js"];
+    var scripts = ["https://apis.google.com/js/plusone.js","https://connect.facebook.net/en_US/all.js#xfbml=1","https://platform.twitter.com/widgets.js","https://platform.linkedin.com/in.js"];
     (function(array) {
         for (var i = 0, len = array.length; i < len; i++)
         {
