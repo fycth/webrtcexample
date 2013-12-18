@@ -132,7 +132,7 @@
 //    rtc.setDebug(true);
     rtc.setCallBackReceiveChatMessage(receiveMessage);
     rtc.setCallOnRoomReceived(onRoomReceived);
-    rtc.initialize('ws://'+window.location.host+'/signaling',lv, rv);
+    rtc.initialize('wss://'+window.location.host+'/signaling',lv, rv);
 
     function onLoad() {
         var divChatInput = document.getElementById("div_chat_input");
@@ -207,6 +207,7 @@
             s.parentNode.insertBefore(elem, s);
         }
     })(scripts);
+
 </script>
 
 </body>
