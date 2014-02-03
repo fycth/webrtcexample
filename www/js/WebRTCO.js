@@ -249,12 +249,16 @@ var WebRTCO = function() {
 
         constraints = mergeConstraints(constraints, sdpConstraints);
         clog("Sending offer to peer, with constraints: \n  \"" + JSON.stringify(constraints) + "\".")
-        pc.createOffer(setLocalAndSendMessage, null, constraints);
+        pc.createOffer(setLocalAndSendMessage, CallAnswerErrorCallBack, constraints);
     };
 
     var doAnswer = function() {
         clog("Sending answer to peer.");
-        pc.createAnswer(setLocalAndSendMessage, null, sdpConstraints);
+        pc.createAnswer(setLocalAndSendMessage, CallAnswerErrorCallBack, sdpConstraints);
+    };
+
+    var CallAnswerErrorCallBack = function(e) {
+        clog("Something wrong happened when answer or offer " + e.toString());
     };
 
     var remoteHangup = function() {
