@@ -4,3 +4,4 @@ log/*.lo*
 www/tmp/
 www/.idea/
 tmp/
+www/chapter3
