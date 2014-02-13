@@ -51,9 +51,9 @@ You should use NGINX >= 1.4 to make it work
 Edit your nginx configuraton file and add these lines into the website configuration:
 
     location /s { 
-    proxy_http_version 1.1; 
-    proxy_set_header Upgrade $http_upgrade; 
-    proxy_set_header Connection "upgrade"; 
+       proxy_http_version 1.1; 
+       proxy_set_header Upgrade $http_upgrade; 
+       proxy_set_header Connection "upgrade"; 
     } 
 
 ### Run
@@ -61,7 +61,7 @@ Edit your nginx configuraton file and add these lines into the website configura
     ./start.sh - to start in console 
     ./start_detached.sh - to start detached (in background)
 
-Now configure your web server, point them on [www] folder as a 'root dir', and open your new web site.
+Now, configure your web server, point them on [www] folder as a 'root dir', and open your new web site.
 
 ### For Windows Users
 
