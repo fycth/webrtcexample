@@ -1,4 +1,4 @@
-WebRTC Example
+# WebRTC Example
 =============
 
 This is a web application that allows you to video chat with someone else.
@@ -61,7 +61,7 @@ Edit your nginx configuraton file and add these lines into the website configura
     ./start.sh - to start in console 
     ./start_detached.sh - to start detached (in background)
 
-Now, configure your web server, point them on [www] folder as a 'root dir', and open your new web site.
+Now configure your web server, point them on [www] folder as a 'root dir', and open your new web site.
 
 ### For Windows Users
 
