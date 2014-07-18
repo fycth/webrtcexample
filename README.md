@@ -7,10 +7,6 @@ The application also supports traditional web chat using text messages.
 
 Written using JavaScript and Erlang.
 
-### Examples of using
-
-  - http://www.oslikas.com built using this code
-
 ### Tested with browsers
 
   - Firefox version 22 or later
@@ -20,6 +16,8 @@ Written using JavaScript and Erlang.
 
   - Erlang (http://www.erlang.org/download.html) 
   - Rebar (http://github.com/basho/rebar)
+
+[![WebRTC Blueprints](https://raw.githubusercontent.com/fycth/webrtcexample/master/www/img/book.jpg)](http://www.webrtcblueprints.com)
 
 ### Get the code:
 
