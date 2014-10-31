@@ -364,16 +364,6 @@ var WebRTCO = function() {
                     to.mozSrcObject = from.mozSrcObject;
                     to.play();
                 };
-
-            MediaStream.prototype.getVideoTracks =
-                function() {
-                    return [];
-                };
-
-            MediaStream.prototype.getAudioTracks =
-                function() {
-                    return [];
-                };
             return true;
         } else if (navigator.webkitGetUserMedia) {
             webrtcDetectedBrowser = "chrome";
