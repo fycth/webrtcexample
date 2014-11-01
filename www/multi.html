@@ -15,13 +15,14 @@
         }
     </style>
     <link rel="shortcut icon" href="/ico/favicon.png">
-    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.2-beta-min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.3-beta-min.js" charset="utf-8"></script>
 </head>
 
 <body onload="onLoad();">
 <div class="container">
     <video id="localVideo"></video><br>
 <button onclick="btn_Mute()" id="btn_mute">Mute Mic</button>
+<button onclick="btn_MuteCam()" id="btn_mute_cam">Pause Camera</button>
 </div>
 <div class="container" id="remoteVideos"></div>
 <div class="container">
@@ -51,6 +52,18 @@
         } else {
              rtc.API_muteMic(true);
              id.innerHTML = "Unmute Mic";
+        }
+    };
+
+    function btn_MuteCam() {
+        var muted = rtc.API_isCamMuted();
+        var id = document.getElementById("btn_mute_cam");
+        if (muted) {
+             rtc.API_muteCam(false);
+             id.innerHTML = "Pause Camera";
+        } else {
+             rtc.API_muteCam(true);
+             id.innerHTML = "Unpause Camera";
         }
     };
 
