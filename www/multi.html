@@ -15,12 +15,13 @@
         }
     </style>
     <link rel="shortcut icon" href="/ico/favicon.png">
-    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.1-beta-min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.2-beta-min.js" charset="utf-8"></script>
 </head>
 
 <body onload="onLoad();">
 <div class="container">
-    <video id="localVideo"></video>
+    <video id="localVideo"></video><br>
+<button onclick="btn_Mute()" id="btn_mute">Mute Mic</button>
 </div>
 <div class="container" id="remoteVideos"></div>
 <div class="container">
@@ -40,6 +41,18 @@
     var chatColorLocal = "#468847";
     var chatColorRemote = "#3a87ad";
     var rtc = null;
+
+    function btn_Mute() {
+        var muted = rtc.API_isMicMuted();
+        var id = document.getElementById("btn_mute");
+        if (muted) {
+             rtc.API_muteMic(false);
+             id.innerHTML = "Mute Mic";
+        } else {
+             rtc.API_muteMic(true);
+             id.innerHTML = "Unmute Mic";
+        }
+    };
 
     function getRemoteVideo(remPid) {
         var video = document.createElement('video');
