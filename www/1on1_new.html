@@ -49,7 +49,7 @@
 
     <link rel="shortcut icon" href="/ico/favicon.png">
 
-    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.1-beta-min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.2-beta-min.js" charset="utf-8"></script>
 
     <title>WebRTC video conference</title>
 
@@ -85,6 +85,13 @@
             <video width="100%" height="100%" autoplay="autoplay" id="remoteVideo1"/>
         </div>
         <div class="span2"></div>
+    </div>
+    <div class="row">
+        <div class="span6" align="center">
+            <button onclick="btn_Mute()" id="btn_mute">Mute Mic</button>
+        </div>
+        <div class="span6" align="center">
+        </div>
     </div>
     <div class="row">
         <div class="span12" align="center">
@@ -161,6 +168,18 @@
         _divV = document.getElementById("div_video_remote");
         _divV.setAttribute("style","height:"+_h+"px");
         _divV.style.height=_h+'px';
+    };
+
+    function btn_Mute() {
+        var muted = rtc.API_isMicMuted();
+        var id = document.getElementById("btn_mute");
+        if (muted) {
+             rtc.API_muteMic(false);
+             id.innerHTML = "Mute Mic";
+        } else {
+             rtc.API_muteMic(true);
+             id.innerHTML = "Unmute Mic";
+        }
     };
 
     function getTime() {
