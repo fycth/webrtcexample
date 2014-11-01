@@ -15,7 +15,7 @@
         }
     </style>
     <link rel="shortcut icon" href="/ico/favicon.png">
-    <script type="text/javascript" src="/js/devWebRTCO.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.0-beta-min.js" charset="utf-8"></script>
 </head>
 
 <body onload="onLoad();">
@@ -27,8 +27,10 @@
     <div id="chat_area" style="width:100%; height:250px; overflow: auto; margin:0 auto 0 auto; border:1px solid rgb(200,200,200); background: rgb(250,250,250);"></div>
 </div>
 <div class="container" id="div_chat_input">
+<form class="navbar-search pull-left" name="chat_form" onsubmit="sendChatTxt(document.chat_form.msgline.value); return false;">
     <input type="text" class="search-query" placeholder="chat here" name="msgline" id="chat_input">
-    <input type="submit" class="btn" id="chat_submit_btn" onclick="sendChatTxt();"/>
+    <input type="submit" class="btn" id="chat_submit_btn"/>
+</form>
 </div>
 
 <script type="text/javascript">
@@ -37,6 +39,7 @@
     var chatArea = document.getElementById("chat_area");
     var chatColorLocal = "#468847";
     var chatColorRemote = "#3a87ad";
+    var rtc = null;
 
     function getRemoteVideo(remPid) {
         var video = document.createElement('video');
@@ -60,7 +63,7 @@
         chatInput.style.width = chatInputWidth + 'px';
 
         var lv = document.getElementById("localVideo");
-        new WebRTCO('wss://'+window.location.host+'/signalling',lv,OnRoomReceived,onChatMsgReceived,getRemoteVideo,OnBye);
+        rtc = new WebRTCO('wss://'+window.location.host+'/signalling',lv,OnRoomReceived,onChatMsgReceived,getRemoteVideo,OnBye);
     };
 
     function OnBye(pid) {
@@ -87,7 +90,7 @@
         var msg = msgline.value;
         addChatTxt(msg, chatColorLocal);
         msgline.value = '';
-        chatSendMessage(msg);
+        rtc.API_sendPutChatMsg(msg);
     };
 
     function getTime() {
