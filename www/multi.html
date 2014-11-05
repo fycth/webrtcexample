@@ -15,7 +15,7 @@
         }
     </style>
     <link rel="shortcut icon" href="/ico/favicon.png">
-    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.3-beta-min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://d2o8sapwq2c31m.cloudfront.net/js/WebRTCO-1.0.4-beta-min.js" charset="utf-8"></script>
 </head>
 
 <body onload="onLoad();">
@@ -89,7 +89,13 @@
         chatInput.style.width = chatInputWidth + 'px';
 
         var lv = document.getElementById("localVideo");
-        rtc = new WebRTCO('wss://'+window.location.host+'/signalling',lv,OnRoomReceived,onChatMsgReceived,getRemoteVideo,OnBye);
+	rtc = new WebRTCO({
+        "signalingURL" : "wss://" + window.location.host + "/signalling",
+        "localVideo" : lv,
+        "onRoomReceived" : OnRoomReceived,
+        "onMessageReceived" : onChatMsgReceived,
+        "onRemoteVideoReceived" : getRemoteVideo,
+        "onBye": OnBye});
     };
 
     function OnBye(pid) {
@@ -98,7 +104,8 @@
     };
 
     function OnRoomReceived(room) {
-        addChatTxt("Now, if somebody wants to join you, should use this link: <a href=\""+window.location.href+"?room="+room+"\">"+window.location.href+"?room="+room+"</a>",chatColorRemote);
+        var roomID = rtc.API_getRoomID();
+        addChatTxt("Now, if somebody wants to join you, should use this link: <a href=\""+window.location.href+"?"+roomID+"="+room+"\">"+window.location.href+"?"+roomID+"="+room+"</a>",chatColorRemote);
     };
 
     function addChatTxt(msg, msgColor) {
